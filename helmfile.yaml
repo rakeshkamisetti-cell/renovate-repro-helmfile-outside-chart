@@ -1,0 +1,17 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  # Local chart in a sibling repository: resolves outside the cloned repo.
+  - name: outside
+    chart: ../../../../other-repo/charts/my-chart
+
+  # Templated chart repo: becomes "/my-chart" once Renovate strips templates.
+  - name: templated
+    chart: "{{ .Values.chartRepo }}/my-chart"
+
+  # A normal dependency that should still get update PRs.
+  - name: memcached
+    version: 6.0.0
+    chart: bitnami/memcached
